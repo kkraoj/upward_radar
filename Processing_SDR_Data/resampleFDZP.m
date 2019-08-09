@@ -1,4 +1,21 @@
-function yp = resampleFDZP(y, m) 
+function yp = resampleFDZP(y, interpfactor) 
+padlen = length(y)*(interpfactor - 1);
+% Compute number of half points in FFT 
+zlen = ceil((length(y)+1)/2);
+% Compute FFT
+z = fft(y);
+% z = z.'; % for complex inputs
+% Construct a new spectrum (row vector) by centering zeros
+zp = [z(1:zlen) zeros(1, padlen) z(zlen+1:end)];
+if  ~mod(length(y), 2) % even number
+    zp(zlen) = zp(zlen)/2; zp(zlen+padlen) = zp(zlen);
+end
+% Compute inverse FFT and scale by m
+yp = ifft(zp)*interpfactor; 
+end
+
+
+
 %   FREQUENCY-DOMAIN ZERO-PADDING (FDZP) RESAMPLING (INTERPOLATION)
 %
 %   Syntax:    
@@ -33,17 +50,3 @@ function yp = resampleFDZP(y, m)
 %   $Revision: 2.0 $  $Date: 2016/08/31 13:03:00 $
 %
 % Calculate number of padding zeros
-padlen = length(y)*(m - 1);
-% Compute number of half points in FFT 
-zlen = ceil((length(y)+1)/2);
-% Compute FFT
-z = fft(y);
-% Construct a new spectrum (row vector) by centering zeros
-zp = [z(1:zlen) zeros(1, padlen) z(zlen+1:end)];
-if  ~mod(length(y), 2) % even number
-    zp(zlen) = zp(zlen)/2; zp(zlen+padlen) = zp(zlen);
-end
-% Compute inverse FFT and scale by m
-yp = ifft(zp)*m; 
-
-end

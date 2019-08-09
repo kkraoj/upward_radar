@@ -10,23 +10,22 @@
 %Version History:
 %ver3: handles cases where there are no peaks detected. Returns plot for
 %troubleshooting. 
-%ver4: more options for troublegshooting. 
+%ver4: more options for troubleshooting. 
 
 clc 
 close all
 clear all
 
 %vars that may need to change:
-%dataFolder = 'C:\Users\jeany\OneDrive - Leland Stanford Junior University\Documents\School\Research\Antarctica_2019\Data_Copy_for_Code'; %
-dataFolder = '/data3/schroeder/TreeRadar/TreeData/20_may_2019_noObstacles_100ft_NS_upsampled';
+dataFolder = 'D:\Krishna\projects\upward_radar\data\8_apr_2019_roble_field_no_obstacle_99ft_v1'; %
+%dataFolder = '/data/schroeder/bienert/Antarctica_2019_back_up/dx0900m/slw-bistatic-dx0900-i132-f330';
 display = 2; %how much data is returned for troubleshooting
 %display = 0 => only display coherent summation at the end
 %display = 1 => display match filter of data where peaks weren't detected
 %display = 2 => display match filter of ALL data as well as the raw time
 %               domain data
-myTitle = '20_may_2019_noObstacles_100ft_NS_upsampled';
-interpFactor=10;
-fs = 15360000*interpFactor; %sample rate = 15360000MHz
+myTitle = '8_apr_2019_roble_field_no_obstacle_99ft_v1';
+fs = 15360000; %sample rate = 15360000MHz
 dataType='short'; %data type from the SDR file
 %number of phase shifts tested to align phases of chirps for summation.
 numPhaseShifts = 6; %a larger number enables better SNR summations, but requires more computation
@@ -34,19 +33,33 @@ numPhaseShifts = 6; %a larger number enables better SNR summations, but requires
 %Constants
 fileType = '*.dat';
 T=1/fs; %sample period
-sampsPerChirp=1/200e6*(fs/interpFactor)^2; %number of expected samples in a chirp
+sampsPerChirp=1/200e6*fs^2; %number of expected samples in a chirp
 c=3e8; % speed of light
 maxOffset = 1300; %maximum antenna separation
 thickness = 1000; %ice thickness
 anticipatedDelay = 2*sqrt(thickness^2+maxOffset^2)/c-1300/c; %estimate of delay between bed and direct path
-windowSize=anticipatedDelay*4/T*8; %Display window for viewing match filtered data
+windowSize=anticipatedDelay*4/T; %Display window for viewing match filtered data
 phaseRange = pi/2; %phases will be shifted from -phaseRange to +phaseRange
 %center freq = 330
 %dur = 8s
 %gain = 62
 
-addpath('/data3/schroeder/TreeRadar/myTools')
-addpath('/data3/schroeder/bienert/code/Processing_SDR_Data')
+
+% %% Rename files add .DAT
+% 
+% % Get all PDF files in the current folder
+% files = dir('*.pdf');
+% % Loop through each
+% for id = 1:length(files)
+%     % Get the file name (minus the extension)
+%     [~, f] = fileparts(files(id).name);
+%       % Convert to number
+%       num = str2double(f);
+%       if ~isnan(num)
+%           % If numeric, rename
+%           movefile(files(id).name, sprintf('%03d.pdf', num));
+%       end
+% end
 
 %% Read Data
 %Create directory of filenames sorted by date
@@ -61,35 +74,13 @@ dataFolderStr = regexprep(dataFolder,'\','\\\');
 name=regexprep(regexprep(regexprep(regexprep(directory,dataFolderStr,''),'\\',''),regexprep(fileType,'*',''),''),'_','-'); %isolate filename from directory
 
 %load pre-recorded chirp
-load ref_chirp_upsampled
-ref_chirp=ref_chirp_upsampled;
+load ref_chirp
 %ref_chirp = ref_
 set(0,'defaultAxesFontsize',18)
 
-allNoChirpsFiles=[];
-coherentSumTotal=[];
 numNoChirpsFiles=0;
 %iterate over each measurement in the folder
-
-i=1;
-%load i
-%load coherentSumTotal
-%load incoherentSumTotal
-%load totalNumChirps
-%load numNoChirpsFiles
-%load allNoChirpsFiles
-
-% create folder with suffix _precossed to dump files
-newfolder = strcat(dataFolder,'_processed');
-cd '/data3/schroeder/TreeRadar/TreeData'
-if ~exist(newfolder, 'dir')
-    mkdir(newfolder);
-end
-
-cd(newfolder)
-
-for i = i:length(directory)    
-    i
+for i = 1:length(directory)
     [coherentSum,incoherentSum,numChirpsDetected,noChirpsFiles] = coherentIncoherentSums_ver8(ref_chirp,fs,char(directory{i}),windowSize,dataType,numPhaseShifts,phaseRange,display);
     
     %check if there were chirps in the file
@@ -108,29 +99,18 @@ for i = i:length(directory)
             totalNumChirps=totalNumChirps+numChirpsDetected;
         end
         %plot sums of chirps in this measurement
-%         figure()
-%         plot([0:T:(length(incoherentSum)-1)*T]*10^6,abs(incoherentSum));
-%         hold on
-%         plot([0:T:(length(coherentSum)-1)*T]*10^6,abs(coherentSum));
-%         hTitle=title('Match Filter')
-%         hXlabel= xlabel('Time (microseconds)')
-%         hYlabel=ylabel('Magnitude')
-%         hLegend=legend('Incoherent Sums','Coherent Sums')
-%         Aesthetics_Script
+        figure()
+        plot([0:T:(length(incoherentSum)-1)*T]*10^6,abs(incoherentSum));
+        hold on
+        plot([0:T:(length(coherentSum)-1)*T]*10^6,abs(coherentSum));
+        hTitle=title('Match Filter')
+        hXlabel= xlabel('Time (microseconds)')
+        hYlabel=ylabel('Magnitude')
+        hLegend=legend('Incoherent Sums','Coherent Sums')
+        Aesthetics_Script
     end
-
-
     
-    if ~isempty(coherentSumTotal)
-        save('coherentSumTotal.mat','coherentSumTotal')
-        save('incoherentSumTotal.mat','incoherentSumTotal')
-        save('totalNumChirps.mat','totalNumChirps')
-    elseif ~isempty(allNoChirpsFiles)
-        save('numNoChirpsFiles.mat','numNoChirpsFiles')
-        save('allNoChirpsFiles.mat','allNoChirpsFiles')
-    end
-    save('i.mat','i')
-    
+
     pause(0.1)
 end
 
@@ -144,17 +124,13 @@ if numNoChirpsFiles<length(directory)
     plot([0:T:(length(incoherentSumTotal)-1)*T]*10^6,abs(incoherentSumTotal));
     hold on
     plot([0:T:(length(coherentSumTotal)-1)*T]*10^6,abs(coherentSumTotal));
-    hTitle=title(['Match Filter of ',num2str(totalNumChirps),' Chirps at ',myTitle]);
+    hTitle=title(['Match Filter of ',num2str(totalNumChirps),' Chirps']);
     hXlabel= xlabel('Time (microseconds)');
     hYlabel=ylabel('Magnitude');
     hLegend=legend('Incoherent Sums','Coherent Sums');
     Aesthetics_Script;
-    cd(newfolder)
     saveas(gcf, [myTitle,'_coherentIncoherentPlot_',num2str(totalNumChirps),'_Sums'], 'fig')
     saveas(gcf, [myTitle,'_coherentIncoherentPlot_',num2str(totalNumChirps),'_Sums'], 'png')
     save([myTitle,'_coherentSum.mat'],'coherentSumTotal')
     save([myTitle,'_incoherentSum.mat'],'incoherentSumTotal')
-
-else
-    disp('[INFO] No Chirps detected in any file')
 end
