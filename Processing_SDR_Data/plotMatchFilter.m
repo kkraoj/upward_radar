@@ -45,4 +45,3 @@ dim = [.2 .5 .3 .3];
 str = sprintf('Max Difference = %0.4f',maxdiff);
 annotation('textbox',dim,'String',str,'FitBoxToText','on');
 
-% just adding trial comment 
