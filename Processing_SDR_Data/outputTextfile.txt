@@ -1,0 +1,212 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2017 The MathWorks, Inc.
+                   R2017b (9.3.0.713579) 64-bit (glnxa64)
+                             September 14, 2017
+
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+>> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> 
+i =
+
+     1
+
+
+hTitle = 
+
+  Text (Match Filtered Data) with properties:
+
+                 String: 'Match Filtered Data'
+               FontSize: 19.8000
+             FontWeight: 'bold'
+               FontName: 'Helvetica'
+                  Color: [0 0 0]
+    HorizontalAlignment: 'center'
+               Position: [4.0003 4.0577e+10 0]
+                  Units: 'data'
+
+  Use GET to show all properties
+
+
+hXlabel = 
+
+  Text (Time (microseconds)) with properties:
+
+                 String: 'Time (microseconds)'
+               FontSize: 19.8000
+             FontWeight: 'normal'
+               FontName: 'Helvetica'
+                  Color: [0.1500 0.1500 0.1500]
+    HorizontalAlignment: 'center'
+               Position: [4.0003 -3.3353e+09 -1]
+                  Units: 'data'
+
+  Use GET to show all properties
+
+
+hYlabel = 
+
+  Text (Magnitude) with properties:
+
+                 String: 'Magnitude'
+               FontSize: 19.8000
+             FontWeight: 'normal'
+               FontName: 'Helvetica'
+                  Color: [0.1500 0.1500 0.1500]
+    HorizontalAlignment: 'center'
+               Position: [-0.6931 2.0000e+10 -1.0000]
+                  Units: 'data'
+
+  Use GET to show all properties
+
+
+hTitle = 
+
+  Text (Time Domain Data) with properties:
+
+                 String: 'Time Domain Data'
+               FontSize: 19.8000
+             FontWeight: 'bold'
+               FontName: 'Helvetica'
+                  Color: [0 0 0]
+    HorizontalAlignment: 'center'
+               Position: [4.0003 608.6589 1.4211e-14]
+                  Units: 'data'
+
+  Use GET to show all properties
+
+
+hXlabel = 
+
+  Text (Time (microseconds)) with properties:
+
+                 String: 'Time (microseconds)'
+               FontSize: 19.8000
+             FontWeight: 'normal'
+               FontName: 'Helvetica'
+                  Color: [0.1500 0.1500 0.1500]
+    HorizontalAlignment: 'center'
+               Position: [4.0003 -50.0292 -1.0000]
+                  Units: 'data'
+
+  Use GET to show all properties
+
+
+hYlabel = 
+
+  Text (Quantization Number) with properties:
+
+                 String: 'Quantization Number'
+               FontSize: 19.8000
+             FontWeight: 'normal'
+               FontName: 'Helvetica'
+                  Color: [0.1500 0.1500 0.1500]
+    HorizontalAlignment: 'center'
+               Position: [-0.8038 300.0003 -1.0000]
+                  Units: 'data'
+
+  Use GET to show all properties
+
+
+i =
+
+     2
+
+
+hTitle = 
+
+  Text (Match Filtered Data) with properties:
+
+                 String: 'Match Filtered Data'
+               FontSize: 19.8000
+             FontWeight: 'bold'
+               FontName: 'Helvetica'
+                  Color: [0 0 0]
+    HorizontalAlignment: 'center'
+               Position: [4.0003 5.0722e+10 0]
+                  Units: 'data'
+
+  Use GET to show all properties
+
+
+hXlabel = 
+
+  Text (Time (microseconds)) with properties:
+
+                 String: 'Time (microseconds)'
+               FontSize: 19.8000
+             FontWeight: 'normal'
+               FontName: 'Helvetica'
+                  Color: [0.1500 0.1500 0.1500]
+    HorizontalAlignment: 'center'
+               Position: [4.0003 -4.1691e+09 -1]
+                  Units: 'data'
+
+  Use GET to show all properties
+
+
+hYlabel = 
+
+  Text (Magnitude) with properties:
+
+                 String: 'Magnitude'
+               FontSize: 19.8000
+             FontWeight: 'normal'
+               FontName: 'Helvetica'
+                  Color: [0.1500 0.1500 0.1500]
+    HorizontalAlignment: 'center'
+               Position: [-0.3798 2.5000e+10 -1.0000]
+                  Units: 'data'
+
+  Use GET to show all properties
+
+
+hTitle = 
+
+  Text (Time Domain Data) with properties:
+
+                 String: 'Time Domain Data'
+               FontSize: 19.8000
+             FontWeight: 'bold'
+               FontName: 'Helvetica'
+                  Color: [0 0 0]
+    HorizontalAlignment: 'center'
+               Position: [4.0003 710.1020 1.4211e-14]
+                  Units: 'data'
+
+  Use GET to show all properties
+
+
+hXlabel = 
+
+  Text (Time (microseconds)) with properties:
+
+                 String: 'Time (microseconds)'
+               FontSize: 19.8000
+             FontWeight: 'normal'
+               FontName: 'Helvetica'
+                  Color: [0.1500 0.1500 0.1500]
+    HorizontalAlignment: 'center'
+               Position: [4.0003 -58.3673 -1.0000]
+                  Units: 'data'
+
+  Use GET to show all properties
+
+
+hYlabel = 
+
+  Text (Quantization Number) with properties:
+
+                 String: 'Quantization Number'
+               FontSize: 19.8000
+             FontWeight: 'normal'
+               FontName: 'Helvetica'
+                  Color: [0.1500 0.1500 0.1500]
+    HorizontalAlignment: 'center'
+               Position: [-0.8038 350.0003 -1]
+                  Units: 'data'
+
+  Use GET to show all properties
+
