@@ -9,7 +9,7 @@ clc
 close all
 clear all
 
-directory = '/home/krishna/upwardradar/upsampling_experiment/correlated_x6.dat';
+directory = '/home/krishna/upwardradar/100ft_2_sit_inline/correlated_04.dat';
 mytitle = 'Raw';
 
 dataType='float';
@@ -19,7 +19,7 @@ dataType='float';
 fID = fopen(directory); %open data file
 data = (fread(fID,dataType)); %read data  ,'ieee-be'?
 fclose(fID);
-t = data(1:2:length(data))/2;
+t = data(1:2:length(data))/8;
 data=data(2:2:length(data)); %only abs is spit out
 
 
@@ -45,4 +45,3 @@ dim = [.2 .5 .3 .3];
 str = sprintf('Max Difference = %0.4f',maxdiff);
 annotation('textbox',dim,'String',str,'FitBoxToText','on');
 
- 
