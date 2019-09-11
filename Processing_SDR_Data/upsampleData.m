@@ -4,7 +4,7 @@ clc
 close all
 clear all
 
-dataFolder = '/media/krishna/Seagate Backup Plus Drive/upwardradar/20_may_2019_2humanssittinginline_100ft_NS'; %
+dataFolder = '/home/radioglaciology/upward_radar/data/arboretum/trial'; %
 writeDataFolder = strcat(dataFolder,'_upsampled');
 fileType = '*.dat';
 
@@ -12,7 +12,7 @@ if ~exist(writeDataFolder, 'dir')
        mkdir(writeDataFolder)
 end
 
-interpFactor=8;
+interpFactor=2;
 fs = 15360000;
 T=1/fs;
 T2=1/(fs*interpFactor);
@@ -26,6 +26,18 @@ dataType='short';
 %% Read Data
 %Create directory of filenames sorted by date
 cd(dataFolder);
+
+% rename all files to .dat
+temp_files = dir('E312*');
+
+for id = 1:length(temp_files)
+    if temp_files(id).name(end-2:end) == 'dat'
+        continue
+    end
+    movefile(temp_files(id).name, sprintf('%s.dat',temp_files(id).name));    
+end
+
+
 b = dir(fileType);
 % b = subdir(fullfile(dataFolder,fileType));
 S = [b(:).datenum].';%obtain date
@@ -53,6 +65,6 @@ for i = 1:length(directory)
     data_upsampled = interpft(data,length(data)*interpFactor);
         
     %write data
-    cd('/home/krishna/upwardradar/Processing_SDR_Data');
+    cd('/home/radioglaciology/upward_radar/codes/Processing_SDR_Data');
     mywriteData(data_upsampled,writeDataFolder,[name{i},'_upsampled_x',num2str(interpFactor)],dataType,0)
 end   

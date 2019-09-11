@@ -17,7 +17,7 @@ close all
 clear all
 
 %vars that may need to change:
-dataFolder = 'D:\Krishna\projects\upward_radar\data\8_apr_2019_roble_field_no_obstacle_99ft_v1'; %
+dataFolder = '/home/radioglaciology/upward_radar/data/arboretum/trial'; %
 %dataFolder = '/data/schroeder/bienert/Antarctica_2019_back_up/dx0900m/slw-bistatic-dx0900-i132-f330';
 display = 2; %how much data is returned for troubleshooting
 %display = 0 => only display coherent summation at the end
@@ -62,6 +62,19 @@ phaseRange = pi/2; %phases will be shifted from -phaseRange to +phaseRange
 % end
 
 %% Read Data
+cd(dataFolder);
+% rename all files to .dat
+temp_files = dir('E312*');
+
+for id = 1:length(temp_files)
+    if temp_files(id).name(end-2:end) == 'dat'
+        continue
+    end
+    movefile(temp_files(id).name, sprintf('%s.dat',temp_files(id).name));    
+end
+
+cd('/home/radioglaciology/upward_radar/codes/Processing_SDR_Data');
+
 %Create directory of filenames sorted by date
 b = subdir(fullfile(dataFolder,fileType));
 S = [b(:).datenum].';%obtain date
