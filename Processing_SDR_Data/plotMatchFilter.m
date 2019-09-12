@@ -9,8 +9,8 @@ clc
 close all
 clear all
 
-directory = '/home/krishna/upwardradar/100ft_2_sit_inline/correlated_04.dat';
-mytitle = 'Raw';
+directory = '/home/krishna/upwardradar/filtered/arboretum/0800_025.dat';
+mytitle = 'Filtered';
 
 dataType='float';
 
