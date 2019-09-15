@@ -90,7 +90,7 @@ yerr = nanstd(allpeaks);
 
 errorbar(x, y, yerr, 'k', 'LineStyle','none', 'LineWidth',2);
 
-l = plot(x,y, 's','MarkerSize', ms, 'MarkerEdgeColor', 'k', 'MarkerFaceColor','k','LineWidth',1); 
+l = plot(x,y, '-s','MarkerSize', ms, 'Color','k','MarkerEdgeColor', 'k','LineWidth',2); 
 % l.MarkerFaceColor = l.Color;
 
 
@@ -109,4 +109,4 @@ fig = gcf;
 fig.PaperUnits = 'inches';
 fig.PaperPosition = [0 0 6 3];
 
-print('-r150','-dtiff','histogram.tiff');
+print('-r300','-djpeg','arboretum_diurnal_12-sep-2019.jpg');
