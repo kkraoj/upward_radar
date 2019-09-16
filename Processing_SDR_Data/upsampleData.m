@@ -4,7 +4,7 @@ clc
 close all
 clear all
 
-dataFolder = '/media/krishna/Seagate Backup Plus Drive/upwardradar/arboretum'; %
+dataFolder = '/media/krishna/Seagate Backup Plus Drive/upwardradar/arboretum_14_sep_2019'; %
 % writeDataFolder = strcat(dataFolder,'_upsampled');
 fileType = '*.dat';
 
@@ -54,7 +54,7 @@ end
 % %read distance between tx and rx antennas (which is the file name)
 % name=regexprep(regexprep(regexprep(directory,dataFolderStr,''),'\\',''),regexprep(fileType,'*',''),''); %isolate filename from directory
 
-
+filenames = dir(sprintf('%s/**/E312*',dataFolder));
 for i = 1:length(filenames)
     fprintf('[INFO] Upsampling %d of %d files\n', i,length(filenames)) ;  
 %     cd(dataFolder);
@@ -75,7 +75,7 @@ for i = 1:length(filenames)
 %     cd('/home/krishna/upwardradar/codes/Processing_SDR_Data');
     writeDataFolder = strcat(filenames(i).folder,'_upsampled');
     if ~exist(writeDataFolder, 'dir')
-       mkdir(writeDataFolder)
+       mkdir(writeDataFolder);
     end
     mywriteData(data_upsampled,writeDataFolder,[filenames(i).name,'_upsampled_x',num2str(interpFactor)],dataType,0);
 end   
