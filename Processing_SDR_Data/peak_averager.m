@@ -2,13 +2,13 @@ clear all
 close all 
 clc 
 
-dataFolder = '/home/krishna/upwardradar/filtered/arboretum_14_sep_2019';
-
+% dataFolder = '/home/krishna/upwardradar/filtered/arboretum_14_sep_2019';
+dataFolder = 'F:\upwardradar\filtered\arboretum_10_sep_2019';
 dataType='float';
 
-filesorder = ['1800','1900','2000','2100','2200','2300','0000','0100','0200','0300','0400','0500','0600','0700','0800','0900','1000','1100'];
+filesorder = ["1800","1900","2000","2100","2200","2300","0000","0100","0200","0300","0400","0500","0600","0700","0800","0900","1000","1100"];
 howmanyfilestotal = [10,9,10,10,10,10,10,10,9,10,10,10,8];
-numhoursrecorded = 18;
+numhoursrecorded = 13;
 howmanyfilessaved = zeros(1, numhoursrecorded);
 %% Read Data
 %read data
@@ -17,7 +17,7 @@ files = dir(sprintf('%s/*.dat',dataFolder));
 allpeaks = NaN(80,numhoursrecorded); %6pm - 11am x 10 chirps per each hour with 8 peaks each
 for i = 1:length(files)
     timerecorded = files(i).name(1:2); 
-    timeindex = str2double(timerecorded) - 17 ; % first valid reading at 1800
+    timeindex = str2double(timerecorded) - 5 ; % first valid reading at 1800
     if timeindex < 0
         timeindex = timeindex+24;
     end
@@ -80,7 +80,7 @@ end
 % axis square
 % ylabel('Magnitude received');
 
-
+csvwrite('arboretum_10_sep_2019.csv',allpeaks);
 %% make timeseries
 
 figure()
@@ -100,11 +100,20 @@ l = plot(x,y, '-s','MarkerSize', ms, 'Color','k','MarkerEdgeColor', 'k','LineWid
 
 
 set(findall(gcf,'-property','FontSize'),'FontSize',14)
-% ylim([0.0,0.1]);
+ylim([0.0,0.3]);
 % xlim([0,6]);
-% xticks([1,2,3,4,5]);
+xticks(linspace(18,35, 18));
 % xticklabels({'standing sidebyside', 'standing inline', 'sitting inline','sitting sidebyside','no obstacles'});
-% xtickangle(45)
+xticklabels(filesorder);
+% newlabels = filesorder;
+% for i = 1:length(filesorder)
+%     templabel = filesorder(i);
+%     newlabels(i) = templabel(1:2);
+% end 
+    
+
+% xticklabels('});
+xtickangle(45)
 % axis square
 ylabel('Magnitude received');
 xlabel('Time of day');
@@ -114,4 +123,4 @@ fig = gcf;
 fig.PaperUnits = 'inches';
 fig.PaperPosition = [0 0 6 3];
 
-print('-r300','-djpeg','arboretum_diurnal_12-sep-2019.jpg');
+% print('-r300','-djpeg','arboretum_diurnal_14-sep-2019.jpg');
