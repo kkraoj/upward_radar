@@ -17,14 +17,19 @@ close all
 clear all
 
 %vars that may need to change:
+
 % dataFolder = '/home/radioglaciology/upward_radar/data/arboretum/trial'; %
 dataFolder = 'D:\Krishna\projects\upward_radar\data\arboretum_14_sep_2019\check';
+% dataFolder = '/media/krishna/Seagate Backup Plus Drive/upwardradar/arboretum/0600'; %
+%dataFolder = '/data/schroeder/bienert/Antarctica_2019_back_up/dx0900m/slw-bistatic-dx0900-i132-f330';
 display = 2; %how much data is returned for troubleshooting
 %display = 0 => only display coherent summation at the end
 %display = 1 => display match filter of data where peaks weren't detected
 %display = 2 => display match filter of ALL data as well as the raw time
 %               domain data
-myTitle = 'check';
+
+% myTitle = 'check';
+myTitle = '06:00';
 fs = 15360000; %sample rate = 15360000MHz
 dataType='short'; %data type from the SDR file
 %number of phase shifts tested to align phases of chirps for summation.
@@ -75,6 +80,7 @@ end
 
 % cd('/home/radioglaciology/upward_radar/codes/Processing_SDR_Data');
 cd ('D:\Krishna\projects\upward_radar\codes\bistatic\Processing_SDR_Data');
+% cd('/home/krishna/upwardradar/codes/Processing_SDR_Data');
 
 %Create directory of filenames sorted by date
 b = subdir(fullfile(dataFolder,fileType));
@@ -94,6 +100,7 @@ set(0,'defaultAxesFontsize',18)
 
 numNoChirpsFiles=0;
 %iterate over each measurement in the folder
+
 for i = 1:length(directory)
     [coherentSum,incoherentSum,numChirpsDetected,noChirpsFiles] = coherentIncoherentSums_ver8(ref_chirp,fs,char(directory{i}),windowSize,dataType,numPhaseShifts,phaseRange,display);
     
