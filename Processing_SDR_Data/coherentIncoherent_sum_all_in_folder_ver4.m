@@ -17,14 +17,14 @@ close all
 clear all
 
 %vars that may need to change:
-dataFolder = '/home/radioglaciology/upward_radar/data/arboretum/trial'; %
+dataFolder = '/home/radioglaciology/upward_radar/data/trial'; %
 %dataFolder = '/data/schroeder/bienert/Antarctica_2019_back_up/dx0900m/slw-bistatic-dx0900-i132-f330';
 display = 2; %how much data is returned for troubleshooting
 %display = 0 => only display coherent summation at the end
 %display = 1 => display match filter of data where peaks weren't detected
 %display = 2 => display match filter of ALL data as well as the raw time
 %               domain data
-myTitle = '8_apr_2019_roble_field_no_obstacle_99ft_v1';
+myTitle = 'trial';
 fs = 15360000; %sample rate = 15360000MHz
 dataType='short'; %data type from the SDR file
 %number of phase shifts tested to align phases of chirps for summation.
