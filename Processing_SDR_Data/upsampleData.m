@@ -4,15 +4,13 @@ clc
 close all
 clear all
 
-dataFolder = '/home/radioglaciology/upward_radar/data/arboretum/trial'; %
-writeDataFolder = strcat(dataFolder,'_upsampled');
+dataFolder = '/media/krishna/Seagate Backup Plus Drive/upwardradar/arboretum_14_sep_2019'; %
+% writeDataFolder = strcat(dataFolder,'_upsampled');
 fileType = '*.dat';
 
-if ~exist(writeDataFolder, 'dir')
-       mkdir(writeDataFolder)
-end
 
-interpFactor=2;
+
+interpFactor=8;
 fs = 15360000;
 T=1/fs;
 T2=1/(fs*interpFactor);
@@ -25,37 +23,46 @@ dataType='short';
 
 %% Read Data
 %Create directory of filenames sorted by date
-cd(dataFolder);
+% cd(dataFolder);
 
 % rename all files to .dat
-temp_files = dir('E312*');
+filenames = dir(sprintf('%s/**/E312*',dataFolder));
 
-for id = 1:length(temp_files)
-    if temp_files(id).name(end-2:end) == 'dat'
+for id = 1:length(filenames)
+    % if filename already ending with dat, continue
+    if filenames(id).name(end-2:end) == 'dat'
         continue
     end
-    movefile(temp_files(id).name, sprintf('%s.dat',temp_files(id).name));    
+    
+    fprintf('[INFO] Renaming %d of %d files\n', id,length(filenames)) ;  
+    oldfullfilename = fullfile(filenames(id).folder, filenames(id).name);
+    newfullfilename = sprintf('%s.dat',oldfullfilename);
+    %fir debugging
+%     fprintf('[INFO] %s \n',newfullfilename)
+    movefile(oldfullfilename, newfullfilename);    
 end
 
+% 
+% b = dir(fileType);
+% % b = subdir(fullfile(dataFolder,fileType));
+% S = [b(:).datenum].';%obtain date
+% [S,S] = sort(S);%sort dates
+% directory = {b(S).name}'; % %make directory be filenames in order of date recorded
+% 
+% dataFolderStr = regexprep(dataFolder,'\','\\\');
+% 
+% %read distance between tx and rx antennas (which is the file name)
+% name=regexprep(regexprep(regexprep(directory,dataFolderStr,''),'\\',''),regexprep(fileType,'*',''),''); %isolate filename from directory
 
-b = dir(fileType);
-% b = subdir(fullfile(dataFolder,fileType));
-S = [b(:).datenum].';%obtain date
-[S,S] = sort(S);%sort dates
-directory = {b(S).name}'; % %make directory be filenames in order of date recorded
-
-dataFolderStr = regexprep(dataFolder,'\','\\\');
-
-%read distance between tx and rx antennas (which is the file name)
-name=regexprep(regexprep(regexprep(directory,dataFolderStr,''),'\\',''),regexprep(fileType,'*',''),''); %isolate filename from directory
-
-
-for i = 1:length(directory)
-    cd(dataFolder);
-    directory1=directory{i};
+filenames = dir(sprintf('%s/**/E312*',dataFolder));
+for i = 1:length(filenames)
+    fprintf('[INFO] Upsampling %d of %d files\n', i,length(filenames)) ;  
+%     cd(dataFolder);
+%     directory1=directory{i};
 
     %read data
-    fID = fopen(directory1); %open data file
+    fullfilename = fullfile(filenames(i).folder, filenames(i).name);
+    fID = fopen(fullfilename); %open data file
     rawDataRead = single(fread(fID,dataType));
     fclose(fID);
     data = complex(rawDataRead(1:2:length(rawDataRead)),rawDataRead(2:2:length(rawDataRead))); %data is complex
@@ -65,6 +72,10 @@ for i = 1:length(directory)
     data_upsampled = interpft(data,length(data)*interpFactor);
         
     %write data
-    cd('/home/radioglaciology/upward_radar/codes/Processing_SDR_Data');
-    mywriteData(data_upsampled,writeDataFolder,[name{i},'_upsampled_x',num2str(interpFactor)],dataType,0)
+%     cd('/home/krishna/upwardradar/codes/Processing_SDR_Data');
+    writeDataFolder = strcat(filenames(i).folder,'_upsampled');
+    if ~exist(writeDataFolder, 'dir')
+       mkdir(writeDataFolder);
+    end
+    mywriteData(data_upsampled,writeDataFolder,[filenames(i).name,'_upsampled_x',num2str(interpFactor)],dataType,0);
 end   

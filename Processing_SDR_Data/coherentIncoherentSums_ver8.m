@@ -61,7 +61,7 @@ if display ==2
     plot([0:T:(length(R)-1)*T],abs(R));
     xlim([0, (length(R)-1)*T])
     hTitle=title('Match Filtered Data')
-    hXlabel= xlabel('Time (microseconds)')
+    hXlabel= xlabel('Time (seconds)')
     hYlabel=ylabel('Magnitude')
     Aesthetics_Script
 
@@ -69,7 +69,7 @@ if display ==2
     plot([0:T:(length(data)-1)*T],abs(data));
     xlim([0, (length(data)-1)*T])
     hTitle=title('Time Domain Data')
-    hXlabel= xlabel('Time (microseconds)')
+    hXlabel= xlabel('Time (seconds)')
     hYlabel=ylabel('Quantization Number')
     Aesthetics_Script
     pause(0.01)
@@ -85,7 +85,7 @@ if isempty(locs)
         plot([0:T:(length(R)-1)*T],abs(R));
         xlim([0, (length(R)-1)*T])
         hTitle=title('Match Filter - No Peaks Above Threshold')
-        hXlabel= xlabel('Time (microseconds)')
+        hXlabel= xlabel('Time (seconds)')
         hYlabel=ylabel('Magnitude')
         Aesthetics_Script
     end

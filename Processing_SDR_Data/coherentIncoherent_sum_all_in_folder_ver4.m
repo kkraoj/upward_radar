@@ -17,14 +17,20 @@ close all
 clear all
 
 %vars that may need to change:
+
 dataFolder = '/home/radioglaciology/upward_radar/data/trial'; %
+
+%dataFolder = 'D:\Krishna\projects\upward_radar\data\arboretum_14_sep_2019\check';
 %dataFolder = '/data/schroeder/bienert/Antarctica_2019_back_up/dx0900m/slw-bistatic-dx0900-i132-f330';
 display = 2; %how much data is returned for troubleshooting
 %display = 0 => only display coherent summation at the end
 %display = 1 => display match filter of data where peaks weren't detected
 %display = 2 => display match filter of ALL data as well as the raw time
 %               domain data
+
 myTitle = 'trial';
+
+%myTitle = '06:00';
 fs = 15360000; %sample rate = 15360000MHz
 dataType='short'; %data type from the SDR file
 %number of phase shifts tested to align phases of chirps for summation.
@@ -73,7 +79,9 @@ for id = 1:length(temp_files)
     movefile(temp_files(id).name, sprintf('%s.dat',temp_files(id).name));    
 end
 
-cd('/home/radioglaciology/upward_radar/codes/Processing_SDR_Data');
+% cd('/home/radioglaciology/upward_radar/codes/Processing_SDR_Data');
+cd ('D:\Krishna\projects\upward_radar\codes\bistatic\Processing_SDR_Data');
+% cd('/home/krishna/upwardradar/codes/Processing_SDR_Data');
 
 %Create directory of filenames sorted by date
 b = subdir(fullfile(dataFolder,fileType));
@@ -93,6 +101,7 @@ set(0,'defaultAxesFontsize',18)
 
 numNoChirpsFiles=0;
 %iterate over each measurement in the folder
+
 for i = 1:length(directory)
     [coherentSum,incoherentSum,numChirpsDetected,noChirpsFiles] = coherentIncoherentSums_ver8(ref_chirp,fs,char(directory{i}),windowSize,dataType,numPhaseShifts,phaseRange,display);
     
@@ -116,34 +125,34 @@ for i = 1:length(directory)
         plot([0:T:(length(incoherentSum)-1)*T]*10^6,abs(incoherentSum));
         hold on
         plot([0:T:(length(coherentSum)-1)*T]*10^6,abs(coherentSum));
-        hTitle=title('Match Filter')
-        hXlabel= xlabel('Time (microseconds)')
-        hYlabel=ylabel('Magnitude')
-        hLegend=legend('Incoherent Sums','Coherent Sums')
-        Aesthetics_Script
+        hTitle=title('Match Filter');
+        hXlabel= xlabel('Time (seconds)');
+        hYlabel=ylabel('Magnitude');
+        hLegend=legend('Incoherent Sums','Coherent Sums');
+        Aesthetics_Script;
     end
     
 
     pause(0.1)
 end
-
-%if any chirps were detected, display the sums
-if numNoChirpsFiles<length(directory)
-    %average 
-    coherentSumTotal=coherentSumTotal/totalNumChirps;
-    incoherentSumTotal=incoherentSumTotal/totalNumChirps;
-
-    gcf=figure();
-    plot([0:T:(length(incoherentSumTotal)-1)*T]*10^6,abs(incoherentSumTotal));
-    hold on
-    plot([0:T:(length(coherentSumTotal)-1)*T]*10^6,abs(coherentSumTotal));
-    hTitle=title(['Match Filter of ',num2str(totalNumChirps),' Chirps']);
-    hXlabel= xlabel('Time (microseconds)');
-    hYlabel=ylabel('Magnitude');
-    hLegend=legend('Incoherent Sums','Coherent Sums');
-    Aesthetics_Script;
-    saveas(gcf, [myTitle,'_coherentIncoherentPlot_',num2str(totalNumChirps),'_Sums'], 'fig')
-    saveas(gcf, [myTitle,'_coherentIncoherentPlot_',num2str(totalNumChirps),'_Sums'], 'png')
-    save([myTitle,'_coherentSum.mat'],'coherentSumTotal')
-    save([myTitle,'_incoherentSum.mat'],'incoherentSumTotal')
-end
+% 
+% %if any chirps were detected, display the sums
+% if numNoChirpsFiles<length(directory)
+%     %average 
+%     coherentSumTotal=coherentSumTotal/totalNumChirps;
+%     incoherentSumTotal=incoherentSumTotal/totalNumChirps;
+% 
+%     gcf=figure();
+%     plot([0:T:(length(incoherentSumTotal)-1)*T]*10^6,abs(incoherentSumTotal));
+%     hold on
+%     plot([0:T:(length(coherentSumTotal)-1)*T]*10^6,abs(coherentSumTotal));
+%     hTitle=title(['Match Filter of ',num2str(totalNumChirps),' Chirps']);
+%     hXlabel= xlabel('Time (microseconds)');
+%     hYlabel=ylabel('Magnitude');
+%     hLegend=legend('Incoherent Sums','Coherent Sums');
+%     Aesthetics_Script;
+%     saveas(gcf, [myTitle,'_coherentIncoherentPlot_',num2str(totalNumChirps),'_Sums'], 'fig')
+%     saveas(gcf, [myTitle,'_coherentIncoherentPlot_',num2str(totalNumChirps),'_Sums'], 'png')
+%     save([myTitle,'_coherentSum.mat'],'coherentSumTotal')
+%     save([myTitle,'_incoherentSum.mat'],'incoherentSumTotal')
+% end
