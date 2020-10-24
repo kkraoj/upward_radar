@@ -18,9 +18,15 @@ clear all
 
 %vars that may need to change:
 
+
 % dataFolder = '/home/radioglaciology/upward_radar/data/arboretum/trial'; %
 % dataFolder = 'D:\Krishna\projects\upward_radar\data\arboretum_14_sep_2019\check';
 % dataFolder = '/media/krishna/Seagate Backup Plus Drive/upwardradar/arboretum/0600'; %
+
+dataFolder = '/home/radioglaciology/upward_radar/data/trial'; %
+
+%dataFolder = 'D:\Krishna\projects\upward_radar\data\arboretum_14_sep_2019\check';
+
 %dataFolder = '/data/schroeder/bienert/Antarctica_2019_back_up/dx0900m/slw-bistatic-dx0900-i132-f330';
 dataFolder = 'F:\upwardradar\arboretum_14_sep_2019\1800_14_sep_2019'; %
 display = 2; %how much data is returned for troubleshooting
@@ -29,8 +35,9 @@ display = 2; %how much data is returned for troubleshooting
 %display = 2 => display match filter of ALL data as well as the raw time
 %               domain data
 
-% myTitle = 'check';
-myTitle = '06:00';
+myTitle = 'trial';
+
+%myTitle = '06:00';
 fs = 15360000; %sample rate = 15360000MHz
 dataType='short'; %data type from the SDR file
 %number of phase shifts tested to align phases of chirps for summation.
