@@ -9,8 +9,8 @@ clc
 close all
 clear all
 
-directory = '/home/krishna/upwardradar/filtered/arboretum/0900_034.dat';
-mytitle = 'Filtered';
+directory = '/home/krishna/upwardradar/filtered/50db_upsampled/oct_2019_v2_014.dat';
+mytitle = '105m';
 
 dataType='float';
 
@@ -43,5 +43,5 @@ peaks = peaks(peaks>0.005);
 maxdiff = max(peaks) - min(peaks);
 dim = [.2 .5 .3 .3];
 str = sprintf('Max Difference = %0.4f',maxdiff);
-annotation('textbox',dim,'String',str,'FitBoxToText','on');
+% annotation('textbox',dim,'String',str,'FitBoxToText','on');
 

@@ -6,10 +6,10 @@ clc
 ref_chirp = '/home/krishna/upwardradar/codes/refchirps/ref_chirp_upsampled_x8.dat';
 % ref_chirp = '/home/krishna/upwardradar/Processing_SDR_Data/ref_chirp.dat';
 
-dataFolder = '/media/krishna/Seagate Backup Plus Drive/upwardradar/investigate_variability'; %
+dataFolder = '/media/krishna/Seagate Backup Plus Drive/upwardradar/50db_upsampled'; %
 % directory = '/home/krishna/upwardradar/20_may_2019_2humanssittinginline_100ft_NS';
 % cd(directory);
-savefolder = '/home/krishna/upwardradar/filtered/investigate_variability';
+savefolder = '/home/krishna/upwardradar/filtered/50db_upsampled';
 if ~exist(savefolder, 'dir')
        mkdir(savefolder)
 end
