@@ -9,7 +9,7 @@ clear all
 
 
 %% Vars
-file = 'C:\Users\jeany\OneDrive - Leland Stanford Junior University\Documents\School\Research\Antarctica_2019\Data_Copy_for_Code\dirfix_DV2018_1012_freq330_gain0_BW15_4';
+file = 'D:\Krishna\projects\upward_radar\codes\bistatic\ref_21_oct_upsampled\ref_420_440_upsampled_x8';
 fileType = '.dat';
 fs = 15360000;
 dataType='short';
@@ -80,4 +80,4 @@ Aesthetics_Script
 
 ref_chirp=ref_data;
 %save reference 
-save('ref_chirp.mat','ref_chirp')
+save('ref_chirp_430_upsampled.mat','ref_chirp')

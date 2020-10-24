@@ -19,9 +19,10 @@ clear all
 %vars that may need to change:
 
 % dataFolder = '/home/radioglaciology/upward_radar/data/arboretum/trial'; %
-dataFolder = 'D:\Krishna\projects\upward_radar\data\arboretum_14_sep_2019\check';
+% dataFolder = 'D:\Krishna\projects\upward_radar\data\arboretum_14_sep_2019\check';
 % dataFolder = '/media/krishna/Seagate Backup Plus Drive/upwardradar/arboretum/0600'; %
 %dataFolder = '/data/schroeder/bienert/Antarctica_2019_back_up/dx0900m/slw-bistatic-dx0900-i132-f330';
+dataFolder = 'F:\upwardradar\arboretum_14_sep_2019\1800_14_sep_2019'; %
 display = 2; %how much data is returned for troubleshooting
 %display = 0 => only display coherent summation at the end
 %display = 1 => display match filter of data where peaks weren't detected

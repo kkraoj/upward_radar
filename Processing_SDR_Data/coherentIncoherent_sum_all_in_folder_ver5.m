@@ -18,14 +18,14 @@ clear all
 
 %vars that may need to change:
 %dataFolder = 'C:\Users\jeany\OneDrive - Leland Stanford Junior University\Documents\School\Research\Antarctica_2019\Data_Copy_for_Code'; %
-dataFolder = '/data/schroeder/bienert/TreeData/roble_field_33ft_no_obstacles_v1_upsampled';
+dataFolder = 'D:\Krishna\projects\upward_radar\data\ref_420_440';
 display = 2; %how much data is returned for troubleshooting
 %display = 0 => only display coherent summation at the end
 %display = 1 => display match filter of data where peaks weren't detected
 %display = 2 => display match filter of ALL data as well as the raw time
 %               domain data
-myTitle = 'roble_field_33ft_no_obstacles_v1_upsampled';
-interpFactor=10;
+myTitle = '430MHz';
+interpFactor=1;
 fs = 15360000*interpFactor; %sample rate = 15360000 Hz
 dataType='short'; %data type from the SDR file
 %number of phase shifts tested to align phases of chirps for summation.
@@ -45,7 +45,7 @@ phaseRange = pi/2; %phases will be shifted from -phaseRange to +phaseRange
 %dur = 8s
 %gain = 62
 
-addpath('/data/schroeder/bienert/code/myTools')
+addpath('D:\Krishna\projects\upward_radar\codes\bistatic\myTools')
 
 %% Read Data
 %Create directory of filenames sorted by date
@@ -60,8 +60,8 @@ dataFolderStr = regexprep(dataFolder,'\','\\\');
 name=regexprep(regexprep(regexprep(regexprep(directory,dataFolderStr,''),'\\',''),regexprep(fileType,'*',''),''),'_','-'); %isolate filename from directory
 
 %load pre-recorded chirp
-load ref_chirp_upsampled
-ref_chirp=ref_chirp_upsampled;
+load ref_chirp_430
+ref_chirp=ref_chirp;
 %ref_chirp = ref_
 set(0,'defaultAxesFontsize',18)
 
@@ -109,9 +109,9 @@ for i = i:length(directory)
 %         Aesthetics_Script
     end
     if ~isempty(coherentSumTotal)
-        save('coherentSumTotal.mat','coherentSumTotal')
-        save('incoherentSumTotal.mat','incoherentSumTotal')
-        save('totalNumChirps.mat','totalNumChirps')
+%         save('coherentSumTotal.mat','coherentSumTotal')
+%         save('incoherentSumTotal.mat','incoherentSumTotal')
+%         save('totalNumChirps.mat','totalNumChirps')
     elseif ~isempty(allNoChirpsFiles)
         save('numNoChirpsFiles.mat','numNoChirpsFiles')
         save('allNoChirpsFiles.mat','allNoChirpsFiles')
@@ -136,8 +136,8 @@ if numNoChirpsFiles<length(directory)
     hYlabel=ylabel('Magnitude');
     hLegend=legend('Incoherent Sums','Coherent Sums');
     Aesthetics_Script;
-    saveas(gcf, [myTitle,'_coherentIncoherentPlot_',num2str(totalNumChirps),'_Sums'], 'fig')
-    saveas(gcf, [myTitle,'_coherentIncoherentPlot_',num2str(totalNumChirps),'_Sums'], 'png')
-    save([myTitle,'_coherentSum.mat'],'coherentSumTotal')
-    save([myTitle,'_incoherentSum.mat'],'incoherentSumTotal')
+%     saveas(gcf, [myTitle,'_coherentIncoherentPlot_',num2str(totalNumChirps),'_Sums'], 'fig')
+%     saveas(gcf, [myTitle,'_coherentIncoherentPlot_',num2str(totalNumChirps),'_Sums'], 'png')
+%     save([myTitle,'_coherentSum.mat'],'coherentSumTotal')
+%     save([myTitle,'_incoherentSum.mat'],'incoherentSumTotal')
 end
