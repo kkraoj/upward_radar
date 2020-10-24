@@ -4,7 +4,8 @@ clc
 close all
 clear all
 
-dataFolder = 'D:\Krishna\projects\upward_radar\codes\bistatic\ref_21_oct'; %
+dataFolder = '/media/krishna/Seagate Backup Plus Drive/upwardradar/trial';
+% dataFolder = 'D:\Krishna\projects\upward_radar\codes\bistatic\ref_21_oct'; %
 % writeDataFolder = strcat(dataFolder,'_upsampled');
 fileType = '*.dat';
 

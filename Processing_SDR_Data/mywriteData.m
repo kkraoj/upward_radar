@@ -5,7 +5,7 @@ fid = fopen(fullfile(dataFolder,[name,ext]),'w'); % create file to write to
 rawDataWrite(1:2:length(data)*2) = real(data);
 rawDataWrite(2:2:length(data)*2)=imag(data);
 count = fwrite(fid,rawDataWrite,dataType);
-fclose(fid)
+fclose(fid);
 
 if plotWritten
 

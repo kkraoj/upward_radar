@@ -9,9 +9,10 @@ clear all
 
 
 %% Vars
-file = 'D:\Krishna\projects\upward_radar\codes\bistatic\ref_21_oct_upsampled\ref_420_440_upsampled_x8';
+file = '/media/krishna/Seagate Backup Plus Drive/upwardradar/ref_430_upsampled/ref_420_440_upsampled_x8';
 fileType = '.dat';
-fs = 15360000;
+interpFactor = 8;
+fs = 15360000*interpFactor;
 dataType='short';
 %center freq = 330
 %dur = 8s
@@ -65,8 +66,8 @@ legend('Data','xCorr with Rect','Middle of Chirp')
 Aesthetics_Script
 
 %grab chirp from time domain
-x1 = middleChirpInd - sampsPerChirp/2; 
-x2 = middleChirpInd + sampsPerChirp/2;
+x1 = middleChirpInd - sampsPerChirp/2/interpFactor; 
+x2 = middleChirpInd + sampsPerChirp/2/interpFactor;
 % take subset of data
 ref_t = t(x1:x2);
 ref_data = data(x1:x2);
@@ -80,4 +81,7 @@ Aesthetics_Script
 
 ref_chirp=ref_data;
 %save reference 
-save('ref_chirp_430_upsampled.mat','ref_chirp')
+save('ref_chirp_430_upsampled.mat','ref_chirp');
+% load ref_chirp_430_upsampled
+writeDataFolder = '/media/krishna/Seagate Backup Plus Drive/upwardradar/ref_430_upsampled';
+mywriteData(ref_chirp,writeDataFolder,['ref_chirp_430_upsampled_x',num2str(interpFactor)],dataType,0);
