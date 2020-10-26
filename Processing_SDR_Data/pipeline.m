@@ -18,7 +18,7 @@ dataType = 'short';
 % cd '/home/krishna/upwardradar/radar';
 for i = 1:length(files)
     time  = string(datetime('now','TimeZone','local','Format','HH:mm:ss'));
-    fprintf('[INFO] Upsampling %d of %d files\n at %s', i,length(files), time) ;  
+    fprintf('[INFO] Upsampling %d of %d files at %s\n', i,length(files), time) ;  
     %read data
     fullfilename = fullfile(files(i).folder, files(i).name);
     fID = fopen(fullfilename); %open data file
@@ -31,7 +31,7 @@ for i = 1:length(files)
     mywriteData(data_upsampled,writeDataFolder,['temp_upsampled_x',num2str(interpFactor)],dataType,0);
     
     time  = string(datetime('now','TimeZone','local','Format','HH:mm:ss'));
-    fprintf('[INFO] Filtering %d of %d files\n at %s', i,length(files), time) ;  
+    fprintf('[INFO] Filtering %d of %d files at %s\n', i,length(files), time) ;  
     inputname = fullfile(writeDataFolder, strcat('temp_upsampled_x',num2str(interpFactor),'.dat'));
     splits = split(files(i).name,"_");
     burst = splits(6); burst = burst{1}; burst = extractAfter(burst,"burst");

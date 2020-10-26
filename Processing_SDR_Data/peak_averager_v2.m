@@ -3,7 +3,7 @@ close all
 clc 
 
 % dataFolder = '/home/krishna/upwardradar/filtered/arboretum_14_sep_2019';
-dataFolder = 'F:\upwardradar\filtered\50db_upsampled';
+dataFolder = '/home/krishna/upwardradar/filtered/jrbp_22_oct_1153am';
 dataType='float';
 
 %% Read Data

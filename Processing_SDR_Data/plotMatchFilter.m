@@ -9,7 +9,7 @@ clc
 close all
 clear all
 
-directory = '/home/krishna/upwardradar/filtered/arboretum/0900_034.dat';
+directory = '/home/krishna/upwardradar/filtered/jrbp_22_oct_1153am/20_2.dat';
 mytitle = 'Filtered';
 
 dataType='float';
