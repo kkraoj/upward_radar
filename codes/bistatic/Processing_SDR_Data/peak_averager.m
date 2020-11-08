@@ -3,14 +3,14 @@ close all
 clc 
 
 % dataFolder = '/home/krishna/upwardradar/filtered/arboretum_14_sep_2019';
-dataFolder = '/home/krishna/upwardradar/filtered/jrbp_22_oct_1153am';
+dataFolder = '/media/krishna/Seagate Backup Plus Drive/upwardradar/filtered/jrbp_5_nov_2020_0939';
 dataType='float';
 
 % filesorder = ["1800","1900","2000","2100","2200","2300","0000","0100","0200","0300","0400","0500","0600","0700","0800","0900","1000","1100"];
 % howmanyfilestotal = [10,9,10,10,10,10,10,10,9,10,10,10,8];
 % numhoursrecorded = length(filesorder);
 % howmanyfilessaved = zeros(1, numhoursrecorded);
-startTime = "2020-10-22 12:00:00";
+startTime = "2020-11-05 09:30:00";
 startTime = datetime(startTime,'InputFormat','yyyy-MM-dd HH:mm:ss');
 
 %% Read Data
@@ -90,31 +90,34 @@ end
 % axis square
 % ylabel('Magnitude received');
 
-csvwrite('/media/krishna/Seagate Backup Plus Drive/upwardradar/results/jrbp_22_oct_1153am.csv',allpeaks);
+csvwrite('/media/krishna/Seagate Backup Plus Drive/upwardradar/results/jrbp_5_nov_2020_0939.csv',allpeaks);
 %% make timeseries
-
-figure('position', [0, 0, 500, 250])
+size = [0, 0, 750, 250];
+figure('position', size)
 hold on
 
-ms = 6;
+ms = 4;
 
-x = numHours+12;
+x = numHours+9;
 y = nanmean(allpeaks);
 yerr = nanstd(allpeaks);
 % yyaxis right
 % plot(x,y,'-o','MarkerSize', ms, 'LineWidth',2);
 % yyaxis left
-errorbar(x, y, yerr,  'LineStyle','none', 'LineWidth',2,'color','black');
-l = plot(x,y, '-s','MarkerSize', ms, 'LineWidth',2,'color','black'); 
+errorbar(x, y, yerr,  'LineStyle','none', 'LineWidth',1,'Color',[0.7 0.7 0.7]);
+l = plot(x,y, '-o','MarkerSize', ms, 'LineWidth',1,'color','black','MarkerFaceColor','black'); 
 % l.MarkerFaceColor = l.Color;
 
-
-set(findall(gcf,'-property','FontSize'),'FontSize',14)
-ylim([0.0,0.1]);
+res = 300;
+set(findall(gcf,'-property','FontSize'),'FontSize',14);
+% set(gcf,'paperunits','inches','paperposition',[0 0 size/res]);
+% ylim([0.0,0.1]);
 % xlim([17,36]);
 % xticks(linspace(18,35, 18));
-xticks([12,18,24,30,36]);
-xticklabels({'12pm','6pm','12am','6am','12pm'});
+% xticks([12,18,24,30,36]);
+% xticklabels({'12pm','6pm','12am','6am','12pm'});
+xticks(min(x):12:round(max(x)/12)*12);
+xticklabels(rem(min(x):12:round(max(x)/12)*12,24));
 % xticklabels({'standing sidebyside', 'standing inline', 'sitting inline','sitting sidebyside','no obstacles'});
 % xticklabels(filesorder);
 % newlabels = filesorder;
@@ -130,10 +133,10 @@ xticklabels({'12pm','6pm','12am','6am','12pm'});
 ylabel('Radar amplitude');
 xlabel('Time of day');
 % print('arboretum_diurnal_cycle.jpg','-r300');
-
+% 
 fig = gcf;
 fig.PaperUnits = 'inches';
-fig.PaperPosition = [0 0 6 3];
+fig.PaperPosition = [0 0 9 3];
 
 
-% print('-r300','-djpeg','arboretum_diurnal_14-sep-2019.jpg');
+print('-r300','-djpeg','jrbp_5_nov_2020_0939.jpg');
