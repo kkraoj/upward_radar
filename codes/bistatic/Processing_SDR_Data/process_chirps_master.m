@@ -1,40 +1,30 @@
-clear all
-close all 
-clc
-
-
-ref_chirp = '/media/krishna/Seagate Backup Plus Drive/upwardradar/ref_430_upsampled/ref_chirp_430_upsampled_x8.dat';
-
-% dataFolder = '/media/krishna/Seagate Backup Plus Drive/upwardradar/jrbp_31_oct_2020_0925'; %
-dataFolder = '/media/krishna/USB30FD/jrbp_5_nov_2020_0939' ;
-savefolder = '/media/krishna/Seagate Backup Plus Drive/upwardradar/filtered/jrbp_5_nov_2020_0939';
-if ~exist(savefolder, 'dir')
-       mkdir(savefolder)
-end
-
-files = dir(sprintf('%s/**/*.dat',dataFolder));
-
-interpFactor = 8;
-dataType = 'short';
-% cd '/home/krishna/upwardradar/radar';
-for i = 1:length(files)
+function value=process_chirps_master(fullfilename)
+    ref_chirp = '/media/krishna/Seagate Backup Plus Drive/upwardradar/ref_430_upsampled/ref_chirp_430_upsampled_x8.dat';
+    savefolder = '/media/krishna/Seagate Backup Plus Drive/upwardradar/filtered/trial';
+    if ~exist(savefolder, 'dir')
+           mkdir(savefolder)
+    end
+    interpFactor = 8;
+    dataType = 'short';
+    % cd '/home/krishna/upwardradar/radar';
     time  = string(datetime('now','TimeZone','local','Format','HH:mm:ss'));
     fprintf('[INFO] Upsampling %d of %d files at %s\n', i,length(files), time) ;  
     %read data
-    fullfilename = fullfile(files(i).folder, files(i).name);
     fID = fopen(fullfilename); %open data file
     rawDataRead = single(fread(fID,dataType));
     fclose(fID);
     data = complex(rawDataRead(1:2:length(rawDataRead)),rawDataRead(2:2:length(rawDataRead))); %data is complex
     data_upsampled = interpft(data,length(data)*interpFactor);
 
-    writeDataFolder = '/media/krishna/Seagate Backup Plus Drive/upwardradar/temp';
+    writeDataFolder = '/media/krishna/Seagate Backup Plus Drive/upwardradar/temp2';
     mywriteData(data_upsampled,writeDataFolder,['temp_upsampled_x',num2str(interpFactor)],dataType,0);
-    
+
     time  = string(datetime('now','TimeZone','local','Format','HH:mm:ss'));
     fprintf('[INFO] Filtering %d of %d files at %s\n', i,length(files), time) ;  
     inputname = fullfile(writeDataFolder, strcat('temp_upsampled_x',num2str(interpFactor),'.dat'));
-    splits = split(files(i).name,"_");
+
+    [filepath,name,ext] = fileparts(fullfilename);
+    splits = split(name,"_");
     burst = splits(6); burst = burst{1}; burst = extractAfter(burst,"burst");
     subBurst = splits(7); subBurst = subBurst{1}; subBurst = extractAfter(subBurst,"subBurst");
 %     timerecorded = files(i).folder; 
@@ -47,5 +37,6 @@ for i = 1:length(files)
     else
         sprintf('[INFO] file processed : %d\n',i);
     end
+    value = 0;
 end
 

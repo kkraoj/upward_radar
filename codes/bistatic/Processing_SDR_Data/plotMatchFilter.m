@@ -9,7 +9,7 @@ clc
 close all
 clear all
 
-directory = '/home/krishna/upwardradar/filtered/jrbp_22_oct_1153am/20_2.dat';
+directory = '/media/krishna/Seagate Backup Plus Drive/upwardradar/filtered/jrbp_5_nov_2020_0939/0_0.dat';
 mytitle = 'Filtered';
 
 dataType='float';
@@ -29,8 +29,8 @@ data=data(2:2:length(data)); %only abs is spit out
 figure()
 plot(t,data)
 title(sprintf('Match filtered data : %s',mytitle));
-hXLabel = xlabel('Time (s)')
-hYLabel = ylabel('Magnitude')
+hXLabel = xlabel('Time (s)');
+hYLabel = ylabel('Magnitude');
 %Aesthetics_Script
 
 %% peak detection
