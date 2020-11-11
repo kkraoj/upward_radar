@@ -1,6 +1,6 @@
 function value=process_chirps_master(fullfilename)
-    ref_chirp = '/media/krishna/Seagate Backup Plus Drive/upwardradar/ref_430_upsampled/ref_chirp_430_upsampled_x8.dat';
-    savefolder = '/media/krishna/Seagate Backup Plus Drive/upwardradar/filtered/trial';
+    ref_chirp = '$OAK/upward_radar/refchirps/ref_chirp_430_upsampled_x8.dat';
+    savefolder = '$OAK/upward_radar/filtered/trial';
     if ~exist(savefolder, 'dir')
            mkdir(savefolder)
     end
@@ -23,7 +23,7 @@ function value=process_chirps_master(fullfilename)
     fprintf('[INFO] Filtering %d of %d files at %s\n', i,length(files), time) ;  
     inputname = fullfile(writeDataFolder, strcat('temp_upsampled_x',num2str(interpFactor),'.dat'));
 
-    [filepath,name,ext] = fileparts(fullfilename);
+    [~,name,~] = fileparts(fullfilename);
     splits = split(name,"_");
     burst = splits(6); burst = burst{1}; burst = extractAfter(burst,"burst");
     subBurst = splits(7); subBurst = subBurst{1}; subBurst = extractAfter(subBurst,"subBurst");
@@ -31,7 +31,7 @@ function value=process_chirps_master(fullfilename)
 %     timerecorded = timerecorded(end-25:end-22);
     savename = fullfile(savefolder, sprintf('%s_%s.dat',burst,subBurst));
     command = sprintf('/home/krishna/upwardradar/radar/xcorr-fast "%s" "%s" > "%s"',ref_chirp, inputname, savename);
-    [status,cmdout] = system(command);
+    [status,~] = system(command);
     if status ~=0
         sprintf('[FAILED] %s\n',inputname);
     else
