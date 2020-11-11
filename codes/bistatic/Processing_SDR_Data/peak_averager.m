@@ -3,7 +3,8 @@ close all
 clc 
 
 % dataFolder = '/home/krishna/upwardradar/filtered/arboretum_14_sep_2019';
-dataFolder = '/media/krishna/Seagate Backup Plus Drive/upwardradar/filtered/jrbp_5_nov_2020_0939';
+% dataFolder = '/media/krishna/Seagate Backup Plus Drive/upwardradar/filtered/jrbp_5_nov_2020_0939';
+dataFolder = 'H:/upwardradar/filtered/jrbp_5_nov_2020_0939';
 dataType='float';
 
 % filesorder = ["1800","1900","2000","2100","2200","2300","0000","0100","0200","0300","0400","0500","0600","0700","0800","0900","1000","1100"];
@@ -90,7 +91,7 @@ end
 % axis square
 % ylabel('Magnitude received');
 
-csvwrite('/media/krishna/Seagate Backup Plus Drive/upwardradar/results/jrbp_5_nov_2020_0939.csv',allpeaks);
+% csvwrite('/media/krishna/Seagate Backup Plus Drive/upwardradar/results/jrbp_5_nov_2020_0939.csv',allpeaks);
 %% make timeseries
 size = [0, 0, 750, 250];
 figure('position', size)
@@ -139,4 +140,4 @@ fig.PaperUnits = 'inches';
 fig.PaperPosition = [0 0 9 3];
 
 
-print('-r300','-djpeg','jrbp_5_nov_2020_0939.jpg');
+% print('-r300','-djpeg','jrbp_5_nov_2020_0939.jpg');
