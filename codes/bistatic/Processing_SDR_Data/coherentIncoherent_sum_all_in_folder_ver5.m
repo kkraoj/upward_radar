@@ -18,7 +18,7 @@ clear all
 
 %vars that may need to change:
 %dataFolder = 'C:\Users\jeany\OneDrive - Leland Stanford Junior University\Documents\School\Research\Antarctica_2019\Data_Copy_for_Code'; %
-dataFolder = 'D:\Krishna\projects\upward_radar\data\trial';
+dataFolder = 'H:\upwardradar\trial';
 display = 2; %how much data is returned for troubleshooting
 %display = 0 => only display coherent summation at the end
 %display = 1 => display match filter of data where peaks weren't detected
@@ -45,7 +45,7 @@ phaseRange = pi/2; %phases will be shifted from -phaseRange to +phaseRange
 %dur = 8s
 %gain = 62
 
-addpath('D:\Krishna\projects\upward_radar\codes\bistatic\myTools')
+addpath('D:\Krishna\projects\upward_radar\repo\codes\bistatic\myTools')
 
 %% Read Data
 %Create directory of filenames sorted by date
@@ -121,23 +121,23 @@ for i = i:length(directory)
     pause(0.1)
 end
 
-%if any chirps were detected, display the sums
-if numNoChirpsFiles<length(directory)
-    %average 
-    coherentSumTotal=coherentSumTotal/totalNumChirps;
-    incoherentSumTotal=incoherentSumTotal/totalNumChirps;
-
-    gcf=figure();
-    plot([0:T:(length(incoherentSumTotal)-1)*T]*10^6,abs(incoherentSumTotal));
-    hold on
-    plot([0:T:(length(coherentSumTotal)-1)*T]*10^6,abs(coherentSumTotal));
-    hTitle=title(['Match Filter of ',num2str(totalNumChirps),' Chirps at ',myTitle]);
-    hXlabel= xlabel('Time (microseconds)');
-    hYlabel=ylabel('Magnitude');
-    hLegend=legend('Incoherent Sums','Coherent Sums');
-    Aesthetics_Script;
-%     saveas(gcf, [myTitle,'_coherentIncoherentPlot_',num2str(totalNumChirps),'_Sums'], 'fig')
-%     saveas(gcf, [myTitle,'_coherentIncoherentPlot_',num2str(totalNumChirps),'_Sums'], 'png')
-%     save([myTitle,'_coherentSum.mat'],'coherentSumTotal')
-%     save([myTitle,'_incoherentSum.mat'],'incoherentSumTotal')
-end
+% %if any chirps were detected, display the sums
+% if numNoChirpsFiles<length(directory)
+%     %average 
+%     coherentSumTotal=coherentSumTotal/totalNumChirps;
+%     incoherentSumTotal=incoherentSumTotal/totalNumChirps;
+% 
+%     gcf=figure();
+%     plot([0:T:(length(incoherentSumTotal)-1)*T]*10^6,abs(incoherentSumTotal));
+%     hold on
+%     plot([0:T:(length(coherentSumTotal)-1)*T]*10^6,abs(coherentSumTotal));
+%     hTitle=title(['Match Filter of ',num2str(totalNumChirps),' Chirps at ',myTitle]);
+%     hXlabel= xlabel('Time (microseconds)');
+%     hYlabel=ylabel('Magnitude');
+%     hLegend=legend('Incoherent Sums','Coherent Sums');
+%     Aesthetics_Script;
+% %     saveas(gcf, [myTitle,'_coherentIncoherentPlot_',num2str(totalNumChirps),'_Sums'], 'fig')
+% %     saveas(gcf, [myTitle,'_coherentIncoherentPlot_',num2str(totalNumChirps),'_Sums'], 'png')
+% %     save([myTitle,'_coherentSum.mat'],'coherentSumTotal')
+% %     save([myTitle,'_incoherentSum.mat'],'incoherentSumTotal')
+% end

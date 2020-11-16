@@ -10,9 +10,9 @@ clear all
 
 %% Vars
 % file = '/media/krishna/Seagate Backup Plus Drive/upwardradar/ref_430_upsampled/ref_420_440_8_seconds_upsampled_x8';
-file = 'H:/upwardradar/ref_430_upsampled/ref_420_440_8_seconds_upsampled_x8';
+file = 'D:\Krishna\projects\upward_radar\data\ref_420_440\ref_E312_NoGPS_freq430_gain0_BW15360000_0';
 fileType = '.dat';
-interpFactor = 8;
+interpFactor = 1;
 fs = 15360000*interpFactor;
 dataType='short';
 %center freq = 330
@@ -84,5 +84,5 @@ ref_chirp=ref_data;
 %save reference 
 % save('ref_chirp_430_upsampled.mat','ref_chirp');
 % load ref_chirp_430_upsampled
-writeDataFolder = '/media/krishna/Seagate Backup Plus Drive/upwardradar/ref_430_upsampled';
-% mywriteData(ref_chirp,writeDataFolder,['ref_chirp_430_upsampled_x',num2str(interpFactor)],dataType,0);
+writeDataFolder = 'H:\upwardradar\ref_430';
+mywriteData(ref_chirp,writeDataFolder,['ref_chirp_430_upsampled_x',num2str(interpFactor)],dataType,0);
